@@ -51,7 +51,7 @@ y luego, si está en Linux/OSX, puede iniciar el servidor con `./server.sh`.
 
 Si está en Windows, inicie el servidor con `server.bat`.
 
-Verás que OrientDB inicia:
+Verás que el servidor inicia:
 
 [source, console]
 ----
@@ -110,6 +110,47 @@ Verás que OrientDB inicia:
 +---------------------------------------------------------------+
 
 Root password [BLANK=auto generate it]: *
+----
+
+Luego deberá ingresar una nueva contraseña para el usuario `root`. Esta la deberá ingresar 2 veces seguidas.
+
+== Manejo de bases de datos
+
+Hay dos maneras de crear bases de datos, poder manejarlas:
+
+1. Entrar al navegador en el puerto 2480 (http://localhost:2480/). No solo podremos crear y manejar las bases de datos sino que también podremos editar y visualizar grafos dentro de esta página.
+
+2. Utilizar la consola de OrientDB.
+
+=== Conexión mediante consola
+
+Si está en Linux/OSX, puede iniciar la consola con `./console.sh` desde la la carpeta "bin".
+
+Si está en Windows, inicie la consola con `console.bat`.
+
+Luego, para conectarse con el servidor ejecute el siguiente comando (Reemplace `servidor`, `usuario` y `contraseña`):
+
+[source, console]
+----
+orientdb> connect remote:servidor usuario contraseña
+----
+
+.Listar bases de datos
+[source, console]
+----
+orientdb> list databases
+----
+
+.Conectarse a una base de datos
+[source, console]
+----
+orientdb> connect remote:servidor/base_de_datos usuario
+----
+
+.Mostrar clases
+[source, console]
+----
+orientdb> classes
 ----
 
 == Operaciones básicas
