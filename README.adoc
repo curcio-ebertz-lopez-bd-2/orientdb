@@ -1,4 +1,4 @@
-= Bases de datos II - Trabajo Práctico
+= Bases de datos II - OrientDB
 v1, {docdate}
 :toc:
 :title-page:
@@ -9,19 +9,33 @@ v1, {docdate}
 :nofooter:
 :pdf-page-margin: [3cm, 3cm, 3cm, 3cm]
 
-== OrientDB
+== Introducción
+
+OrientDB es una bases de datos NoSQL de código abierto orientado a documentos y grafos desarrollada en Java.
 
 == Origen
+
+Fue desarrollado por OrientDB Ltd. y está diseñado para ser una base de datos NoSQL de alto rendimiento y escalable.
 
 == Casos de éxito
 
 == Características principales
+
+- Taxonomía: OrientDB es multi-modelo, lo que significa que admite múltiples modelos de datos, incluyendo documentos, grafos, clave-valor y objetos.
+
+- Escalabilidad: OrientDB es escalable y puede funcionar en un clúster distribuido, lo que permite la distribución de datos en varios nodos para manejar grandes volúmenes de información.
+
+- Transacciones ACID: OrientDB garantiza transacciones ACID (Atomicidad, Consistencia, Aislamiento y Durabilidad), lo que lo hace adecuado para aplicaciones que requieren alta integridad de datos.
+
+- Compatibilidad: OrientDB es compatible con múltiples lenguajes de programación, incluyendo Java, Python y .NET.
 
 == Diferencias con otras bases de datos
 
 == Instalación y configuración
 
 == Operaciones básicas
+
+OrientDB es compatible con el conocido lenguaje de consultas SQL y soporta consultas en lenguaje Gremlin para trabajar con datos de grafo.
 
 === Insert
 
