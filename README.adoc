@@ -136,11 +136,11 @@ Luego, para conectarte al servidor, puedes usar el siguiente comando (asegúrate
 connect remote:servidor usuario contraseña
 ----
 
-Para crear una base de datos, utiliza el comando `create database` (recuerda reemplazar `servidor`, `base_de_datos` y `usuario`):
+Para crear una base de datos, utiliza el comando `create database`. Asegúrate de especificar una URL para la base de datos y un nombre de usuario.
 
 [source]
 ----
-create database plocal:servidor/base_de_datos usuario
+create database plocal:/ruta/a/la/base-de-datos usuario
 ----
 
 Para listar las bases de datos existentes, ejecuta el siguiente comando:
