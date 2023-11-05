@@ -238,7 +238,7 @@ También puedes utilizar la sintaxis de contenido JSON para la inserción de dat
 INSERT INTO Estudiante CONTENT {'legajo': 1, 'nombre': 'Juan', 'apellido': 'Perez'}
 ----
 
-=== Creación de Aristas
+=== Creación de aristas
 
 La creación de aristas en OrientDB te permite establecer relaciones entre diferentes vértices en tu base de datos. 
 
