@@ -177,19 +177,19 @@ A la hora de crear clases en OrientDB, puedes hacerlo de diversas formas:
 .Creación de una clase genérica
 [source, sql]
 ----
-CREATE CLASS Estudiante;
+CREATE CLASS Estudiante
 ----
 
 .Creación de una clase que hereda de un vértice
 [source, sql]
 ----
-CREATE CLASS Usuario EXTENDS V;
+CREATE CLASS Usuario EXTENDS V
 ----
 
 .Creación de una clase que hereda de una arista
 [source, sql]
 ----
-CREATE CLASS Sigue EXTENDS E;
+CREATE CLASS Sigue EXTENDS E
 ----
 
 === Creación de atributos
@@ -198,10 +198,10 @@ Si deseas agregar atributos a una clase antes de ingresar datos, puedes hacerlo 
 
 [source, sql]
 ----
-CREATE PROPERTY Estudiante.legajo STRING;
-CREATE PROPERTY Estudiante.nombre STRING;
-CREATE PROPERTY Estudiante.apellido STRING;
-CREATE PROPERTY Estudiante.nacimiento DATE;
+CREATE PROPERTY Estudiante.legajo STRING
+CREATE PROPERTY Estudiante.nombre STRING
+CREATE PROPERTY Estudiante.apellido STRING
+CREATE PROPERTY Estudiante.nacimiento DATE
 ----
 
 === Creación de indices
@@ -210,10 +210,10 @@ Para crear indices puedes hacerlo de la siguiente forma:
 
 [source, sql]
 ----
-CREATE INDEX Estudiante.legajo UNIQUE;
+CREATE INDEX Estudiante.legajo UNIQUE
 ----
 
-=== Inserción de Datos
+=== Inserción de datos
 
 La inserción de datos en OrientDB se puede realizar de diversas formas, similar a como se hace en una base de datos SQL:
 
@@ -221,24 +221,87 @@ Inserción utilizando la sintaxis de columnas y valores:
 
 [source, sql]
 ----
-INSERT INTO Estudiante (legajo, nombre, apellido) VALUES (1, 'Juan', 'Perez');
+INSERT INTO Estudiante (legajo, nombre, apellido) VALUES (1, 'Juan', 'Perez')
 ----
 
 Otra forma de inserción, utilizando la sintaxis de pares clave-valor:
 
 [source, sql]
 ----
-INSERT INTO Estudiante SET legajo = 1, nombre = 'Juan', apellido = 'Perez';
+INSERT INTO Estudiante SET legajo = 1, nombre = 'Juan', apellido = 'Perez'
 ----
 
 También puedes utilizar la sintaxis de contenido JSON para la inserción de datos:
 
 [source, sql]
 ----
-INSERT INTO Estudiante CONTENT {'legajo': 1, 'nombre': 'Juan', 'apellido': 'Perez'};
+INSERT INTO Estudiante CONTENT {'legajo': 1, 'nombre': 'Juan', 'apellido': 'Perez'}
 ----
 
-=== Eliminación de Datos
+=== Creación de Aristas
+
+La creación de aristas en OrientDB te permite establecer relaciones entre diferentes vértices en tu base de datos. 
+
+A continuación, se presenta un ejemplo de cómo crear aristas.
+
+Agreguemos usuarios a la clase `Usuario` de la siguiente manera:
+
+[source, sql]
+----
+INSERT INTO Usuario SET nombre_usuario = 'juan_perez55', correo = 'juanperez55@gmail.com';
+INSERT INTO Usuario SET nombre_usuario = 'carlos_rodr32', correo = 'carlosrodriguez32@gmail.com';
+----
+
+Al observar los datos en la consola, veremos lo siguiente:
+
+[source, console]
+----
++----+-----+-------+--------------+---------------------------+
+|#   |@RID |@CLASS |nombre_usuario|correo                     |
++----+-----+-------+--------------+---------------------------+
+|0   |#22:0|Usuario|juan_perez55  |juanperez55@gmail.com      |
+|1   |#23:0|Usuario|carlos_rodr32 |carlosrodriguez32@gmail.com|
++----+-----+-------+--------------+---------------------------+
+----
+
+Para crear una arista que conecte a estos dos usuarios, ejecutamos el siguiente comando:
+
+[source, sql]
+----
+CREATE EDGE Sigue FROM (SELECT FROM Usuario WHERE nombre_usuario = 'juan_perez55') TO (SELECT FROM Usuario WHERE nombre_usuario = 'carlos_rodr32');
+----
+
+Una vez realizado esto, podemos ver los datos de la clase `Sigue`:
+
+[source, console]
+----
++----+-----+------+-----+-----+
+|#   |@RID |@CLASS|out  |in   |
++----+-----+------+-----+-----+
+|0   |#26:0|Sigue |#22:0|#23:0|
++----+-----+------+-----+-----+
+----
+
+Como se puede observar, hemos establecido una relación de `Sigue` entre los usuarios `juan_perez55` y `carlos_rodr32`. En términos coloquiales, podríamos decir que `juan_perez55` sigue a `carlos_rodr32`. Es importante destacar que en este contexto, `Sigue` no representa una relación simétrica, lo que significa que `carlos_rodr32` no sigue automáticamente a `juan_perez55`.
+
+Además, los datos en la clase `Usuario` también se actualizan para reflejar la relación:
+
+[source, console]
+----
++----+-----+-------+--------------+---------------------------+---------+--------+
+|#   |@RID |@CLASS |nombre_usuario|correo                     |out_Sigue|in_Sigue|
++----+-----+-------+--------------+---------------------------+---------+--------+
+|0   |#22:0|Usuario|juan_perez55  |juanperez55@gmail.com      |[#26:0]  |        |
+|1   |#23:0|Usuario|carlos_rodr32 |carlosrodriguez32@gmail.com|         |[#26:0] |
++----+-----+-------+--------------+---------------------------+---------+--------+
+----
+
+Como se puede ver, la relación de `Sigue` se refleja en las propiedades de la clase `Usuario`. Esta es la forma en que OrientDB gestiona y representa las relaciones en su base de datos.
+
+// Obtener usuarios que sigue juan_perez55
+//SELECT expand(out('Sigue')) FROM Usuario WHERE nombre_usuario = 'juan_perez55'
+
+=== Eliminación de datos
 
 La eliminación de datos en OrientDB se asemeja a la que se realiza en SQL.
 
@@ -248,8 +311,8 @@ Agreguemos dos estudiantes más a la clase `Estudiante`:
 
 [source, sql]
 ----
-INSERT INTO Estudiante CONTENT {'legajo': 2, 'nombre': 'Maria', 'apellido': 'Gonzalez'};
-INSERT INTO Estudiante CONTENT {'legajo': 3, 'nombre': 'Carlos', 'apellido': 'Ramirez'};
+INSERT INTO Estudiante CONTENT {'legajo': 2, 'nombre': 'Maria', 'apellido': 'Gonzalez'}
+INSERT INTO Estudiante CONTENT {'legajo': 3, 'nombre': 'Carlos', 'apellido': 'Ramirez'}
 ----
 
 Al ejecutar una consulta `SELECT * FROM Estudiante`, obtenemos los siguientes resultados en la consola:
@@ -269,7 +332,7 @@ Para eliminar un estudiante con un legajo específico, como el estudiante con le
 
 [source, sql]
 ----
-DELETE FROM Estudiante WHERE legajo = 2;
+DELETE FROM Estudiante WHERE legajo = 2
 ----
 
 Tras la eliminación, al ejecutar nuevamente la consulta `SELECT * FROM Estudiante`, observamos que el estudiante Carlos Ramirez ha sido eliminado:
@@ -284,7 +347,7 @@ Tras la eliminación, al ejecutar nuevamente la consulta `SELECT * FROM Estudian
 +----+-----+----------+------+------+--------+
 ----
 
-=== Actualización de Datos
+=== Actualización de datos
 
 La actualización de datos en OrientDB se logra utilizando el comando `UPDATE`, que te permite modificar registros existentes. 
 
@@ -306,7 +369,7 @@ Para actualizar un registro, utilizamos el comando `UPDATE`. En este ejemplo, ca
 
 [source, sql]
 ----
-UPDATE Estudiante SET apellido = 'Rodriguez' WHERE legajo = 3;
+UPDATE Estudiante SET apellido = 'Rodriguez' WHERE legajo = 3
 ----
 
 Al ejecutar nuevamente la consulta `SELECT * FROM Estudiante`, observamos los siguientes resultados en la consola:
