@@ -41,15 +41,16 @@ Se descargará el archivo de la versión community. Descomprímalo en su sistema
 
 Ahora ingrese a la carpeta que se descomprimió y a la subcarpeta "bin":
 
-[source, console]
+[source]
 ----
 cd orientdb-community-3.2.24/bin
 ----
-(cambia el `cd` con la versión exacta que descargaste)
 
-y luego, si está en Linux/OSX, puede iniciar el servidor con `./server.sh`.
+(cambia el nombre de la carpeta con la versión exacta que descargaste)
 
-Si está en Windows, inicie el servidor con `server.bat`.
+y luego, si estás en Linux/OSX, puede iniciar el servidor con `./server.sh`.
+
+Si estás en Windows, inicia el servidor con `server.bat`.
 
 Verás que el servidor inicia:
 
@@ -112,52 +113,64 @@ Verás que el servidor inicia:
 Root password [BLANK=auto generate it]: *
 ----
 
-Luego deberá ingresar una nueva contraseña para el usuario `root`. Esta la deberá ingresar 2 veces seguidas.
+Luego, deberás ingresar una nueva contraseña para el usuario `root`.
 
-== Manejo de bases de datos
+== Conexiones de bases de datos
 
-Hay dos maneras de crear bases de datos, poder manejarlas:
+Existen dos métodos para conectarse a un servidor y comenzar a trabajar con las bases de datos en OrientDB:
 
-1. Entrar al navegador en el puerto 2480 (http://localhost:2480/). No solo podremos crear y manejar las bases de datos sino que también podremos editar y visualizar grafos dentro de esta página.
+1. Acceso a través del navegador en el puerto 2480 (http://localhost:2480/): Esta opción no solo te permite crear y administrar bases de datos, sino también editar y visualizar gráficos directamente desde la página web.
 
-2. Utilizar la consola de OrientDB.
+2. Utilización de la consola de OrientDB.
 
 === Conexión mediante consola
 
-Si está en Linux/OSX, puede iniciar la consola con `./console.sh` desde la la carpeta "bin".
+Si estás utilizando Linux/OSX, puedes iniciar la consola ejecutando `./console.sh` desde la carpeta "bin".
 
-Si está en Windows, inicie la consola con `console.bat`.
+En el caso de Windows, inicia la consola ejecutando `console.bat`.
 
-Luego, para conectarse con el servidor ejecute el siguiente comando (Reemplace `servidor`, `usuario` y `contraseña`):
+Luego, para conectarte al servidor, puedes usar el siguiente comando (asegúrate de reemplazar `servidor`, `usuario` y `contraseña`):
 
-[source, console]
+[source]
 ----
-orientdb> connect remote:servidor usuario contraseña
-----
-
-.Listar bases de datos
-[source, console]
-----
-orientdb> list databases
+connect remote:servidor usuario contraseña
 ----
 
-.Conectarse a una base de datos
-[source, console]
+Para crear una base de datos, utiliza el comando `create database` (recuerda reemplazar `servidor`, `base_de_datos` y `usuario`):
+
+[source]
 ----
-orientdb> connect remote:servidor/base_de_datos usuario
+create database plocal:servidor/base_de_datos usuario
 ----
 
-.Mostrar clases
-[source, console]
+Para listar las bases de datos existentes, ejecuta el siguiente comando:
+
+[source]
 ----
-orientdb> classes
+list databases
+----
+
+Para conectarte a una base de datos, puedes utilizar el siguiente comando:
+
+[source]
+----
+connect remote:servidor/base_de_datos usuario
+----
+
+Asegúrate de reemplazar `servidor`, `base_de_datos` y `usuario` con los valores correspondientes.
+
+Para ver las clases existentes, utiliza el siguiente comando:
+
+[source]
+----
+classes
 ----
 
 == Operaciones básicas
 
 OrientDB es compatible con el conocido lenguaje de consultas SQL y soporta consultas en lenguaje Gremlin para trabajar con datos de grafo.
 
-=== Crear clase
+=== Crear clases
 
 [source, sql]
 ----
