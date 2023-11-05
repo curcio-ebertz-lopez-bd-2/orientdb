@@ -170,14 +170,31 @@ classes
 
 OrientDB es compatible con el conocido lenguaje de consultas SQL y soporta consultas en lenguaje Gremlin para trabajar con datos de grafo.
 
-=== Crear clases
+=== Creación de clases
 
+A la hora de crear clases en OrientDB, puedes hacerlo de diversas formas:
+
+.Creación de una clase genérica
 [source, sql]
 ----
 CREATE CLASS Estudiante;
 ----
 
-=== Agregar atributos
+.Creación de una clase que hereda de un vértice
+[source, sql]
+----
+CREATE CLASS Usuario EXTENDS V;
+----
+
+.Creación de una clase que hereda de una arista
+[source, sql]
+----
+CREATE CLASS Sigue EXTENDS E;
+----
+
+=== Creación de atributos
+
+Si deseas agregar atributos a una clase antes de ingresar datos, puedes hacerlo de la siguiente manera:
 
 [source, sql]
 ----
@@ -187,55 +204,58 @@ CREATE PROPERTY Estudiante.apellido STRING;
 CREATE PROPERTY Estudiante.nacimiento DATE;
 ----
 
-=== Crear indice
+=== Creación de indices
+
+Para crear indices puedes hacerlo de la siguiente forma:
 
 [source, sql]
 ----
 CREATE INDEX Estudiante.legajo UNIQUE;
 ----
 
-=== Insert
+=== Inserción de Datos
 
-Como en una base de datos relacional, se puede usar:
+La inserción de datos en OrientDB se puede realizar de diversas formas, similar a como se hace en una base de datos SQL:
+
+Inserción utilizando la sintaxis de columnas y valores:
 
 [source, sql]
 ----
 INSERT INTO Estudiante (legajo, nombre, apellido) VALUES (1, 'Juan', 'Perez');
 ----
 
-De otra forma:
+Otra forma de inserción, utilizando la sintaxis de pares clave-valor:
 
 [source, sql]
 ----
 INSERT INTO Estudiante SET legajo = 1, nombre = 'Juan', apellido = 'Perez';
 ----
 
-En la sintaxis de contenido JSON, se escribiría así:
+También puedes utilizar la sintaxis de contenido JSON para la inserción de datos:
 
 [source, sql]
 ----
 INSERT INTO Estudiante CONTENT {'legajo': 1, 'nombre': 'Juan', 'apellido': 'Perez'};
 ----
 
-=== Delete
+=== Eliminación de Datos
 
-.Agrego 2 estudiantes más
+La eliminación de datos en OrientDB se asemeja a la que se realiza en SQL.
+
+A continuación, se presenta un ejemplo que ilustra cómo eliminar datos.
+
+Agreguemos dos estudiantes más a la clase `Estudiante`:
+
+[source, sql]
+----
+INSERT INTO Estudiante CONTENT {'legajo': 2, 'nombre': 'Maria', 'apellido': 'Gonzalez'};
+INSERT INTO Estudiante CONTENT {'legajo': 3, 'nombre': 'Carlos', 'apellido': 'Ramirez'};
+----
+
+Al ejecutar una consulta `SELECT * FROM Estudiante`, obtenemos los siguientes resultados en la consola:
+
 [source, console]
 ----
-orientdb {db=prueba}> INSERT INTO Estudiante CONTENT {'legajo': 2, 'nombre': 'Maria', 'apellido': 'Gonzalez'};
-
-Inserted record '[Estudiante#22:2{legajo:2,nombre:Maria,apellido:Gonzalez} v1]' in 0.002000 sec(s).
-
-orientdb {db=prueba}> INSERT INTO Estudiante CONTENT {'legajo': 3, 'nombre': 'Carlos', 'apellido': 'Ramirez'};
-
-Inserted record '[Estudiante#23:1{legajo:3,nombre:Carlos,apellido:Ramirez} v1]' in 0.001000 sec(s).
-----
-
-.Muestro los datos
-[source, console]
-----
-orientdb {db=prueba}> SELECT * FROM Estudiante;
-
 +----+-----+----------+------+------+--------+
 |#   |@RID |@CLASS    |legajo|nombre|apellido|
 +----+-----+----------+------+------+--------+
@@ -243,57 +263,64 @@ orientdb {db=prueba}> SELECT * FROM Estudiante;
 |1   |#23:1|Estudiante|3     |Carlos|Ramirez |
 |2   |#25:1|Estudiante|1     |Juan  |Perez   |
 +----+-----+----------+------+------+--------+
-
-3 item(s) found. Query executed in 0.003 sec(s).
 ----
 
-.Elimino y muestro los datos
+Para eliminar un estudiante con un legajo específico, como el estudiante con legajo igual a 2 (Carlos Ramirez), utilizamos el siguiente comando:
+
+[source, sql]
+----
+DELETE FROM Estudiante WHERE legajo = 2;
+----
+
+Tras la eliminación, al ejecutar nuevamente la consulta `SELECT * FROM Estudiante`, observamos que el estudiante Carlos Ramirez ha sido eliminado:
+
 [source, console]
 ----
-orientdb {db=prueba}> DELETE FROM Estudiante WHERE legajo = 2;
-
-Delete record(s) '[{count:1}]' in 0.003000 sec(s).
-
-orientdb {db=prueba}> SELECT * FROM Estudiante;
-
 +----+-----+----------+------+------+--------+
 |#   |@RID |@CLASS    |legajo|nombre|apellido|
 +----+-----+----------+------+------+--------+
 |0   |#23:1|Estudiante|3     |Carlos|Ramirez |
 |1   |#25:1|Estudiante|1     |Juan  |Perez   |
 +----+-----+----------+------+------+--------+
-
-2 item(s) found. Query executed in 0.001 sec(s).
 ----
 
-=== Update
+=== Actualización de Datos
+
+La actualización de datos en OrientDB se logra utilizando el comando `UPDATE`, que te permite modificar registros existentes. 
+
+A continuación, se presenta un ejemplo de cómo actualizar datos.
+
+Si ejecutamos la consulta `SELECT * FROM Estudiante` obtenemos los siguientes resultados en la consola:
 
 [source, console]
 ----
-orientdb {db=prueba}> SELECT * FROM Estudiante;
-
 +----+-----+----------+------+------+--------+
 |#   |@RID |@CLASS    |legajo|nombre|apellido|
 +----+-----+----------+------+------+--------+
 |0   |#23:1|Estudiante|3     |Carlos|Ramirez |
 |1   |#25:1|Estudiante|1     |Juan  |Perez   |
 +----+-----+----------+------+------+--------+
+----
 
-2 item(s) found. Query executed in 0.001 sec(s).
-orientdb {db=prueba}> UPDATE Estudiante SET apellido = 'Rodriguez' WHERE legajo = 3;
+Para actualizar un registro, utilizamos el comando `UPDATE`. En este ejemplo, cambiamos el apellido de Carlos Ramirez a 'Rodriguez' con la siguiente consulta:
 
-Updated record(s) '[{count:1}]' in 0.008000 sec(s).
+[source, sql]
+----
+UPDATE Estudiante SET apellido = 'Rodriguez' WHERE legajo = 3;
+----
 
-orientdb {db=prueba}> SELECT * FROM Estudiante;
+Al ejecutar nuevamente la consulta `SELECT * FROM Estudiante`, observamos los siguientes resultados en la consola:
 
+[source, console]
+----
 +----+-----+----------+------+------+---------+
 |#   |@RID |@CLASS    |legajo|nombre|apellido |
 +----+-----+----------+------+------+---------+
 |0   |#23:1|Estudiante|3     |Carlos|Rodriguez|
 |1   |#25:1|Estudiante|1     |Juan  |Perez    |
 +----+-----+----------+------+------+---------+
-
-2 item(s) found. Query executed in 0.001 sec(s).
 ----
+
+De esta manera, hemos actualizado el apellido de Carlos Ramirez a 'Rodriguez' en la base de datos.
 
 == Conclusiones
