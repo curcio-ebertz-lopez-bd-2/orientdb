@@ -99,6 +99,14 @@ CLASS=Estudiante              CLASS=Carrera
 
 En este caso, el registro A contiene la referencia al registro B. Esta referencia se denominó "carrera". Como las relaciones son bidireccionales, con la API `Graph` se puede representar esta bidireccionalidad, almacenando una arista por vértice.
 
+Las relaciones 1 a 1 y 1 a n (sin la API `Graph`) se definen utilizando referencias a través del tipo `LINK`. Para las relaciones 1 a n y n a n, OrientDB utiliza conjuntos de `LINK`, de tipo:
+
+- `LINKLIST`: Una lista ordenada de links
+- `LINKSET`: Un conjunto desordenado de links, sin repetidos
+- `LINKMAP`: Un map ordenado de links, siendo la clave un `String` y el valor un `LINK`
+
+La API `Graph` define que una arista sólo conecta a dos vértices, por lo que una relación 1 a n no se podría modelar de forma trivial. Para modelar este tipo de relaciones, se deben utilizar múltiples aristas.
+
 
 == Diferencias con otras bases de datos
 
