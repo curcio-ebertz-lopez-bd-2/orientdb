@@ -141,7 +141,7 @@ Las relaciones 1 a 1 y n a 1 se pueden almacenar utilizando el tipo `EMBEDDED`. 
 
 OrientDB ofrece dos tipos de isolation levels: Read Committed y Repeatable Read, siendo Read Committed el default, y el único disponible si se utiliza el protocolo `remote`. Esto quiere decir que no se tendrán `dirty reads`, pero puede cambiar un valor leido más de una vez
 
-== Tipos de transacciones
+== Transacciones
 
 Existen dos tipos de transacciones:
 
@@ -152,6 +152,9 @@ En una arquitectura distribuida, se utiliza un protocolo similar a `2 phase lock
 +
 Cuando se tienen diferentes nodos y se realiza el commit de una transacción en uno de ellos, todos los registros actualizados se envían al resto de los nodos del servidor, por lo que estos nodosos son responsables de realizar el commit de la transacción. En caso de fallo, se verifica el quorum. Si fue respetado, los nodos que fallaron son alineados a los que no. En caso contrario, todos los nodos realizan el rollback.
 
+== Replicación
+
+OrientDB soporta la replicación Multi Master, en la que cada nodo es un maestro y puede leer y escribir en la base de datos. La única restricción es que cada replicación de la base de datos debe tener el mismo nombre en la base de datos distribuida. Cuando el servidor se inicia, envía una lista de sus bases de datos a todos los nodos del cluster. Si los nodos tienen bases de datos con los mismos nombres, se establece la replicación entre ellas.
 
 == Diferencias con otras bases de datos
 
