@@ -57,11 +57,11 @@ Cada registro tiene un número de versión que se incrementa cuando se actualiza
 
 === Almacenamiento de datos
 
-* Clases: Las clases se podrían pensar como una tabla del modelo relacional, o una colección en una base de datos no relacional con taxonomía documental. Definen registros, de forma parecida a como una clase define a un objeto en POO. Las clases pueden ser schema-less, schema-full o un mix de amba, y pueden heredar de otras clases. La herencia es por atributos, es decir, la clase hija tendrá los mismos atributos que la clase padre.
+* Clases: Las clases se podrían pensar como una tabla del modelo relacional, o una colección en una base de datos no relacional con taxonomía documental. Definen registros, de forma parecida a como una clase define a un objeto en POO. Las clases pueden ser schema-less, schema-full o un mix de ambas, y pueden heredar de otras clases. La herencia es por atributos, es decir, la clase hija tendrá los mismos atributos que la clase padre.
 +
 También existe el concepto de *clase abstracta*, que son utilizadas para definir otras clases, pero no se pueden instanciar.
 +
-Cada clase tiene sus clusters, que se definen automáticamente al momento de la creación de la clase. El cluster es un espacio físico de almacenamiento para la información. Toda clase no abstracta debe tener al menos un cluster definido, funcionando como default. Como una clase puede tener más de un cluster, una búsqueda sobre los elementos de esa clase se propaga por todos los elemntos del cluster. Al insertar información, OrientDB selecciona el cluster donde se almacenará utilizando una estrategia predeterminada.
+Cada clase tiene sus clusters, que se definen automáticamente al momento de la creación de la clase. El cluster es un espacio físico de almacenamiento para la información. Toda clase no abstracta debe tener al menos un cluster definido, funcionando como default. Como una clase puede tener más de un cluster, una búsqueda sobre los elementos de esa clase se propaga por todos los elementos del cluster. Al insertar información, OrientDB selecciona el cluster donde se almacenará utilizando una estrategia predeterminada.
 
 * Cluster: como se mencionó, los clusters son espacios de almacenamiento para los registros. OrientDB genera un cluster por core de la CPU para cada clase, para mejorar el paralelismo. El nombre del cluster corresponde al nombre de la clase en minúsculas, un guión bajo y un entero. Por ejemplo, para la clase `Persona`, OrientDB generará los clusters `persona`, `persona_1`, `persona_2`, etc.
 
@@ -105,7 +105,7 @@ CLASS=Estudiante              CLASS=Carrera
 
 En este caso, el registro A contiene la referencia al registro B. Esta referencia se denominó "carrera". Como las relaciones son bidireccionales, con la API `Graph` se puede representar esta bidireccionalidad, almacenando una arista por vértice.
 
-Las relaciones 1 a 1 y 1 a n (sin la API `Graph`) se definen utilizando referencias a través del tipo `LINK`. Para las relaciones 1 a n y n a n, OrientDB utiliza conjuntos de `LINK`, de tipo:
+Las relaciones 1 a 1 y 1 a n (sin la API `Graph`) se definen utilizando referencias a través del tipo `LINK`. Para las relaciones 1 a M y M a M, OrientDB utiliza conjuntos de `LINK`, de tipo:
 
 - `LINKLIST`: Una lista ordenada de links
 - `LINKSET`: Un conjunto desordenado de links, sin repetidos
@@ -224,6 +224,10 @@ Root password [BLANK=auto generate it]: *
 ----
 
 Luego, deberás ingresar una nueva contraseña para el usuario `root`.
+
+== Video de instalación y configuración
+
+https://www.youtube.com/watch?v=IaVeWtFsHL8[Instalación y configuración]
 
 == Conexiones de bases de datos
 
