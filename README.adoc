@@ -37,9 +37,21 @@ Los documentos son de tipado suave, y se pueden definir mediante schemas y añad
 
 Se denomina BLOB a los datos en formato binario.
 
-Para su orientación a grafos, OrientDB admite dos tipos de datos extra: vértices y aristas. Los vértices almacenan la información, y las aristas conectan dos vértices de forma bidireccional. Ambos son documentos, excepto la versión lightweight de las aristas. 
+Para su orientación a grafos, OrientDB admite dos tipos de datos extra: vértices y aristas. Los vértices almacenan la información, y las aristas conectan dos vértices de forma bidireccional. Ambos son documentos, excepto la versión lightweight de las aristas.
+
+== Funcionamiento
+
+Cuando se genera un registro, OrientDB le asigna automáticamente un ID. Este ID está compuesto por dos elementos: el identificador del cluster y la posición del registro en el mismo. El formato es `#<cluster>:<position>`. Si el ID del cluster es positivo, se garantiza la persistencia del registro. En caso contrario, los registros son temporales, como los que aparecen en conjuntos de resultados de queries que utilizan proyecciones.
+
+No es necesario generar un campo para estos ID, ya que la base de datos lo gestiona independientemente.
+
+Si el registro es eliminado, su ID también se elimina, y no se vuelve a utilizar.
+
+Cada registro tiene un número de versión que se incrementa cuando se actualiza, para evitar conflictos al momento del commit en una transacción.
 
 == Diferencias con otras bases de datos
+
+con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma
 
 == Descarga e instalación
 
