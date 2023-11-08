@@ -84,7 +84,7 @@ En este caso, la query es significativamente más rápida, ya que OrientDB restr
 
 == Diferencias con otras bases de datos
 
-con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma
+con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
 
 == Descarga e instalación
 
