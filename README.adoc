@@ -219,6 +219,10 @@ Root password [BLANK=auto generate it]: *
 
 Luego, deberás ingresar una nueva contraseña para el usuario `root`.
 
+== Video de instalación y configuración
+
+https://www.youtube.com/watch?v=IaVeWtFsHL8[Instalación y configuración]
+
 == Conexiones de bases de datos
 
 Existen dos métodos para conectarse a un servidor y comenzar a trabajar con las bases de datos en OrientDB:
