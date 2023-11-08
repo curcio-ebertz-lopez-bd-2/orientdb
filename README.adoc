@@ -37,13 +37,13 @@ La URL de la base de datos se compone del motor de la base de datos y el nombre,
 
 == Tipos de datos
 
-OrientDB admite cuatro tipos de datos: _documento_, _blob_, _vertices_ y _x_. Un registro puede ser cualquiera de estos elementos.
+OrientDB admite cuatro tipos de datos: _documento_, _blob_, _vertices_ y _aristas_. Un registro puede ser cualquiera de estos elementos.
 
 Los documentos son de tipado suave, y se pueden definir mediante schemas y añadir restricciones (como una base de datos relacional), pero también pueden ser utilizados sin un schema definido. Para las relaciones entre documentos, utilizamos `Map<String, Object>`.
 
-Se denomina BLOB a los datos en formato binario.
+Se denomina BLOB a los datos en formato binario. Los vértices almacenan la información, y las aristas conectan dos vértices de forma bidireccional. Ambos son documentos, excepto la versión lightweight de las aristas.
 
-Para su orientación a grafos, OrientDB admite dos tipos de datos extra: vértices y aristas. Los vértices almacenan la información, y las aristas conectan dos vértices de forma bidireccional. Ambos son documentos, excepto la versión lightweight de las aristas.
+La información dentro de un registro puede ser de tipo: `Boolean`, `Integer`, `Short`, `Long`, `Float`, `Double`, `Date-time`, `String`, `Binary`, `Byte`, `Transient`, `Custom`, `Decimal`, `Any`, `Embedded`, `Link`, y distintos tipos de colecciones de estos últimos.
 
 == Funcionamiento
 
