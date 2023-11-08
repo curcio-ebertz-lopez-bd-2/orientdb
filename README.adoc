@@ -160,6 +160,14 @@ OrientDB soporta la replicación Multi Master, en la que cada nodo es un maestro
 
 == Sharding
 
+OrientDB utiliza un enfoque de sharding llamado "sharding por clúster" o "sharding por clúster horizontal" para dividir y distribuir los datos en múltiples nodos.
+
+Los clusteres se dividen entre distintos nodos del servidor, pudiendo asignarse cada cluster a más de un nodo. Cuando se crea un registro que pertenece a un cluster manejado por dos nodos o más, la información se envía a todos los nodos implicados. Esto se puede hacer debido a que toda la conficuración de la arquitectura distribuida se encuentra en un archivo JSON.
+
+Las sentencias `UPDATE` y `DELETE` siempre involucran a todos los nodos que contienen el cluster. Sin embargo, esto puede generar errores, por lo que se recomienda seleccionar la información deseada e ir iterando sobre ella, eliminando elemento por elemento. Esto puede, si algo sucede durante el borrado de la información, sólo eliminar un conjunto de los registros requeridos.
+
+Por ultimo, si el usuario desea realizar una lectura y la información se encuentra en el nodo local, simplemente se muestra desde ahí. Si no, OrientDB realiza una llamada a todos los nodos que tengan la información, para luego mostrar el retorno.
+
 == Diferencias con otras bases de datos
 
 con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
