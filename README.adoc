@@ -27,7 +27,7 @@ Fue desarrollado por OrientDB Ltd. y está diseñado para ser una base de datos 
 
 - Transacciones ACID: OrientDB garantiza transacciones ACID (Atomicidad, Consistencia, Aislamiento y Durabilidad), lo que lo hace adecuado para aplicaciones que requieren alta integridad de datos.
 
-- Compatibilidad: OrientDB es compatible con múltiples lenguajes de programación, incluyendo Java, Python y .NET.
+- Compatibilidad: OrientDB es compatible con múltiples lenguajes de programación, incluyendo Java, Python y .NET; y el estándar SQL.
 
 == Tipos de datos
 
@@ -58,6 +58,29 @@ También existe el concepto de *clase abstracta*, que son utilizadas para defini
 Cada clase tiene sus clusters, que se definen automáticamente al momento de la creación de la clase. El cluster es un espacio físico de almacenamiento para la información. Toda clase no abstracta debe tener al menos un cluster definido, funcionando como default. Como una clase puede tener más de un cluster, una búsqueda sobre los elementos de esa clase se propaga por todos los elemntos del cluster. Al insertar información, OrientDB selecciona el cluster donde se almacenará utilizando una estrategia predeterminada.
 
 * Cluster: como se mencionó, los clusters son espacios de almacenamiento para los registros. OrientDB genera un cluster por core de la CPU para cada clase, para mejorar el paralelismo. El nombre del cluster corresponde al nombre de la clase en minúsculas, un guión bajo y un entero. Por ejemplo, para la clase `Persona`, OrientDB generará los clusters `persona`, `persona_1`, `persona_2`, etc.
+
+Supongamos que tenemos la clase `Estudiante`, que puede heredar de la clase `Persona`. Dos clusters para esta clase pueden ser `estudiante100` y `estudiante101`. Como ambos clusters pertenecen a la misma clase, podemos obtener los datos de ambos (y de todos los demás clusters pertenecientes a esta clase) de la siguiente forma:
+
+[source, sql]
+----
+orientdb> SELECT FROM Estudiante
+----
+
+Incluso se pueden filtrar los resultados, de la misma forma que se haría en SQL
+
+[source, sql]
+----
+orientdb> SELECT FROM Estudiante WHERE nombre = 'Juan'
+----
+
+Si se quisiera obtener elementos de un cluster específico, se puede realizar de la siguiente manera:
+
+[source, sql]
+----
+orientdb> SELECT FROM CLUSTER:estudiante101
+----
+
+En este caso, la query es significativamente más rápida, ya que OrientDB restringe la búsqueda al cluster requerido.
 
 == Diferencias con otras bases de datos
 
