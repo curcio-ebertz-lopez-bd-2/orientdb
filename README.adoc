@@ -137,6 +137,10 @@ Las relaciones 1 a 1 y n a 1 se pueden almacenar utilizando el tipo `EMBEDDED`. 
 - `EMBEDDEDSET`: Un conjunto desordenado de registros, sin repetidos
 - `EMBEDDEDMAP`: Un map ordenado de registros, siendo la clave un `String` y el valor un `EMBEDDED`
 
+== Isolation levels
+
+OrientDB ofrece dos tipos de isolation levels: Read Committed y Repeatable Read, siendo Read Committed el default, y el único disponible si se utiliza el protocolo `remote`. Esto quiere decir que no se tendrán `dirty reads`, pero puede cambiar un valor leido más de una vez.
+
 == Diferencias con otras bases de datos
 
 con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
