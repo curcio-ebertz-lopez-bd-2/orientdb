@@ -19,6 +19,8 @@ Fue desarrollado por OrientDB Ltd. y está diseñado para ser una base de datos 
 
 == Casos de éxito
 
+Algunos de los clientes de OrientDB son Accenture, Comcast, Ericsson, las Naciones Unidas, Sky, entre otros.
+
 == Características principales
 
 - Taxonomía: OrientDB es multi-modelo, lo que significa que admite múltiples modelos de datos, incluyendo documentos, grafos, clave-valor y objetos.
@@ -156,9 +158,15 @@ Cuando se tienen diferentes nodos y se realiza el commit de una transacción en 
 
 OrientDB soporta la replicación Multi Master, en la que cada nodo es un maestro y puede leer y escribir en la base de datos. La única restricción es que cada replicación de la base de datos debe tener el mismo nombre en la base de datos distribuida. Cuando el servidor se inicia, envía una lista de sus bases de datos a todos los nodos del cluster. Si los nodos tienen bases de datos con los mismos nombres, se establece la replicación entre ellas.
 
+== Sharding
+
 == Diferencias con otras bases de datos
 
 con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
+
+https://es.slideshare.net/WilmerGonzalez7/bases-de-datos-nosql-multimodelos-caso-de-estudio-orientdb
+
+image::imgs/comparativa.png[align="center"]
 
 == Descarga e instalación
 
