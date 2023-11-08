@@ -488,6 +488,10 @@ Tras la eliminación, al ejecutar nuevamente la consulta `SELECT * FROM Estudian
 +----+-----+----------+------+------+--------+
 ----
 
+=== Eliminación de aristas
+
+Para eliminar una arista, se puede simplemente utilizar el `@RID`. Por ejemplo, para eliminar la arista 0 de Sigue, ejecutamos la consulta `DELETE EDGE #26:0`.
+
 === Actualización de datos
 
 La actualización de datos en OrientDB se logra utilizando el comando `UPDATE`, que te permite modificar registros existentes. 
