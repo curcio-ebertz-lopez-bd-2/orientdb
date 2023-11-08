@@ -29,6 +29,12 @@ Fue desarrollado por OrientDB Ltd. y está diseñado para ser una base de datos 
 
 - Compatibilidad: OrientDB es compatible con múltiples lenguajes de programación, incluyendo Java, Python y .NET; y el estándar SQL.
 
+== Base de datos
+
+Se pueden crear múltiples bases de datos, de distintos tipos, pero no se puede trabajar con mas de una al mismo tiempo. Esto es porque el manejo de la estructura de directorios internamente permite que haya dos bases de datos con el mismo nombre en distintos directorios.
+
+La URL de la base de datos se compone del motor de la base de datos y el nombre, de la siguiente forma: `<engine>:<db-name>`. El motor puede ser `plocal`, que utiliza al file system para almacenar los datos y contiene un LOG; `memory`, que almacena la base de datos completamente en memoria; y `remote`, que permite una conexión remota para que sea posible acceder a ella a través de varios clientes. La sintaxis de esta última es `remote:<server>:[<port>]/db-name`, siendo el puerto por default el 2424.
+
 == Tipos de datos
 
 OrientDB admite cuatro tipos de datos: _documento_, _blob_, _vertices_ y _x_. Un registro puede ser cualquiera de estos elementos.
