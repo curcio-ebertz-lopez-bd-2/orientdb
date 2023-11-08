@@ -29,6 +29,16 @@ Fue desarrollado por OrientDB Ltd. y está diseñado para ser una base de datos 
 
 - Compatibilidad: OrientDB es compatible con múltiples lenguajes de programación, incluyendo Java, Python y .NET.
 
+== Tipos de datos
+
+OrientDB admite cuatro tipos de datos: _documento_, _blob_, _vertices_ y _x_. Un registro puede ser cualquiera de estos elementos.
+
+Los documentos son de tipado suave, y se pueden definir mediante schemas y añadir restricciones (como una base de datos relacional), pero también pueden ser utilizados sin un schema definido. Para las relaciones entre documentos, utilizamos `Map<String, Object>`.
+
+Se denomina BLOB a los datos en formato binario.
+
+Para su orientación a grafos, OrientDB admite dos tipos de datos extra: vértices y aristas. Los vértices almacenan la información, y las aristas conectan dos vértices de forma bidireccional. Ambos son documentos, excepto la versión lightweight de las aristas. 
+
 == Diferencias con otras bases de datos
 
 == Descarga e instalación
