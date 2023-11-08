@@ -82,6 +82,24 @@ orientdb> SELECT FROM CLUSTER:estudiante101
 
 En este caso, la query es significativamente más rápida, ya que OrientDB restringe la búsqueda al cluster requerido.
 
+=== Relaciones
+
+OrientDB admite dos tipos de relaciones, *referenciadas* (como en el modelo relacional) y *embebidas* (como puede ser en el modelo documental). Estas relaciones también pueden ser schema-full o schema-less.
+
+==== Relaciones referenciadas
+
+Como suele suceder en bases de datos noSQL, no se admiten `joins`. En reemplazo a esto, OrientDB almacena referencias directas a los objetos de la relación, generando un grafo. Por ejemplo
+
+----
+                  carrera
+  Record A     ------------->    Record B
+CLASS=Estudiante              CLASS=Carrera
+  RID=5:23                       RID=10:2
+----
+
+En este caso, el registro A contiene la referencia al registro B. Esta referencia se denominó "carrera". Como las relaciones son bidireccionales, con la API `Graph` se puede representar esta bidireccionalidad, almacenando una arista por vértice.
+
+
 == Diferencias con otras bases de datos
 
 con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
