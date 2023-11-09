@@ -170,9 +170,15 @@ Por ultimo, si el usuario desea realizar una lectura y la información se encuen
 
 == Diferencias con otras bases de datos
 
-con relacional: puede ser schemaless, no tenes que generar la PK o generar un campo para la misma, esta tiene clases y la otra no, esta se divide por clusters, ambas utilizan SQL pero esta lo utiliza modificado levemente
+A diferencia de las bases de datos relacionales, OrientDB puede ser una base de datos schema-less, o con schema fluido, a parte de schema-full. Esto le da las restricciones que se pueden dar con el modelo relacional, pero es más fexible que éste, ya que se puede adaptar a más casos de uso.
 
-https://es.slideshare.net/WilmerGonzalez7/bases-de-datos-nosql-multimodelos-caso-de-estudio-orientdb
+A parte, no es necesario definir manualmente la primary key, ya que OrientDB lo gestiona automáticamente.
+
+Como OrientDB es una base de datos desarrollada para utilizarse en una arquitectura distribuida, y a diferencia de otras taxonomías, divide su información en clusteres según las clases, permitiendo aprovechar los beneficios de la programación orientada a objetos, las restricciones que permiten garantizar las propiedades ACID, provenientes de las bases de datos relacionales, y los beneficios del escalamiento horizontal, provenientes de las bases de datos no relacionales.
+
+Al ser una base de datos políglota, permite explotar los beneficios de los grafos manteniendo los beneficios de utilizar documentos para almacenar la información (como en taxonomías documentales), pero no permite atributos multivaluados. REVISAR
+
+El uso de SQL le da una ventaja con respecto a otras bases de datos no relacionales, ya que su curva de aprendizaje es menor. Sin embargo, no se permiten `JOINs`.
 
 image::imgs/comparativa.png[align="center"]
 
